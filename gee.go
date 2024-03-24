@@ -1,7 +1,6 @@
 package gee
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"strings"
@@ -52,7 +51,6 @@ func (group *RouterGroup) Use(middlewares ...HandlerFunc) {
 
 func (group *RouterGroup) addRoute(method string, comp string, handler HandlerFunc) {
 	pattern := group.prefix + comp
-	fmt.Println(Logo)
 
 	if !IsDebug() == true {
 		log.Printf("[Gee] %4s - %s", method, pattern)
