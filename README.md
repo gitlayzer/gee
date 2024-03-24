@@ -18,15 +18,15 @@ Gee API Framework encapsulates the net/http framework, making it easier and fast
 
 ### Getting Gee
 ```
-import "github.com/gitlayzer/gee_api_framework"
+import "github.com/gitlayzer/gee"
 ```
 
 to your code, and then go [build|run|test] will automatically fetch the necessary dependencies.
 
-Otherwise, run the following Go command to install the `gin` package:
+Otherwise, run the following Go command to install the `gee` package:
 
 ```sh
-$ go get -u github.com/gitlayzer/gee_api_framework
+$ go get -u github.com/gitlayzer/gee
 ```
 
 ### Running Gee
