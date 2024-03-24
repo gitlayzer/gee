@@ -3,8 +3,11 @@ package gee
 import (
 	"encoding/json"
 	"fmt"
+	"math"
 	"net/http"
 )
+
+const abortIndex int = math.MaxInt >> 1
 
 type H map[string]interface{}
 
@@ -88,4 +91,26 @@ func (c *Context) HTML(code int, html string) {
 	c.SetHeader("Content-Type", "text/html")
 	c.Status(code)
 	c.Writer.Write([]byte(html))
+}
+
+func (c *Context) AbortWithStatus(code int) {
+	c.Status(code)
+	c.Writer.WriteHeader(code)
+	c.Abort()
+}
+
+func (c *Context) Abort() {
+	c.index = abortIndex
+}
+
+func (c *Context) requestHeader(key string) string {
+	return c.Request.Header.Get(key)
+}
+
+func (c *Context) GetHeader(key string) string {
+	return c.requestHeader(key)
+}
+
+func (c *Context) DeleteHeader(key string) {
+	c.Writer.Header().Del(key)
 }
