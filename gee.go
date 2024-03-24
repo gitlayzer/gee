@@ -1,7 +1,6 @@
 package gee
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"strings"
@@ -52,7 +51,6 @@ func (group *RouterGroup) Use(middlewares ...HandlerFunc) {
 
 func (group *RouterGroup) addRoute(method string, comp string, handler HandlerFunc) {
 	pattern := group.prefix + comp
-	fmt.Println(Logo)
 
 	if !IsDebug() == true {
 		log.Printf("[Gee] %4s - %s", method, pattern)
@@ -63,30 +61,40 @@ func (group *RouterGroup) addRoute(method string, comp string, handler HandlerFu
 }
 
 func (group *RouterGroup) GET(pattern string, handler HandlerFunc) {
-	group.addRoute("GET", pattern, handler)
+	group.addRoute(http.MethodGet, pattern, handler)
 }
 
 func (group *RouterGroup) POST(pattern string, handler HandlerFunc) {
-	group.addRoute("POST", pattern, handler)
+	group.addRoute(http.MethodPost, pattern, handler)
 }
 
 func (group *RouterGroup) PUT(pattern string, handler HandlerFunc) {
-	group.addRoute("PUT", pattern, handler)
+	group.addRoute(http.MethodPut, pattern, handler)
 }
 
 func (group *RouterGroup) DELETE(pattern string, handler HandlerFunc) {
-	group.addRoute("DELETE", pattern, handler)
+	group.addRoute(http.MethodDelete, pattern, handler)
 }
 
 func (group *RouterGroup) PATCH(pattern string, handler HandlerFunc) {
-	group.addRoute("PATCH", pattern, handler)
+	group.addRoute(http.MethodPatch, pattern, handler)
 }
 
 func (group *RouterGroup) HEAD(pattern string, handler HandlerFunc) {
-	group.addRoute("HEAD", pattern, handler)
+	group.addRoute(http.MethodHead, pattern, handler)
 }
 
 func (group *RouterGroup) OPTIONS(pattern string, handler HandlerFunc) {
+	group.addRoute(http.MethodOptions, pattern, handler)
+}
+
+func (group *RouterGroup) Any(pattern string, handler HandlerFunc) {
+	group.addRoute("GET", pattern, handler)
+	group.addRoute("POST", pattern, handler)
+	group.addRoute("PUT", pattern, handler)
+	group.addRoute("DELETE", pattern, handler)
+	group.addRoute("PATCH", pattern, handler)
+	group.addRoute("HEAD", pattern, handler)
 	group.addRoute("OPTIONS", pattern, handler)
 }
 
